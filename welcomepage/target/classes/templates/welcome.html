@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Welcome</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 400px;
+            width: 100%;
+            border: 1px solid #000; /* black outline */
+        }
+        h1 {
+            color: #333;
+        }
+        .fast-check {
+            margin-top: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100px;
+            border: 2px solid #28a745;
+            border-radius: 10px;
+            background-color: #e7f6e7; /* very light green */
+            color: #28a745; /* dark green */
+            font-size: 36px; /* increased text size */
+            font-weight: bold;
+            text-transform: uppercase;
+        }
+        a {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            color: #fff;
+            background-color: #007bff;
+            border-radius: 5px;
+            text-decoration: none;
+            font-size: 16px;
+        }
+        a:hover {
+            background-color: #0056b3;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>Welcome to the PDF Verification Service</h1>
+    <div class="fast-check">
+        Fast Check
+    </div>
+    <a href="/api/pdf/upload">Upload PDF</a>
+</div>
+</body>
+</html>

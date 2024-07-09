@@ -1,0 +1,173 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload PDF for Verification</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f9;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh; /* Ensure minimum height of viewport */
+            padding: 20px;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+            border: 1px solid #000; /* black outline */
+        }
+        h2 {
+            color: #333;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .form-group {
+            margin-bottom: 20px;
+            width: 100%;
+            text-align: left;
+        }
+        .form-group label {
+            font-weight: bold;
+            display: block;
+            margin-bottom: 5px;
+            color: #007bff; /* blue color */
+        }
+        .form-group input[type="file"], .form-group input[type="password"], .form-group button {
+            width: 100%;
+            padding: 12px; /* increased padding for inputs and button */
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 18px; /* increased font size */
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #007bff;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-size: 18px; /* increased font size */
+            border-radius: 5px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            padding: 14px 0; /* increased padding for button */
+        }
+        button:hover {
+            background-color: #0056b3;
+        }
+        .result {
+            margin-top: 40px; /* increased margin-top */
+            margin-bottom: 20px; /* added margin-bottom */
+            padding: 20px;
+            background-color: #e9ecef;
+            border: 1px solid #ced4da;
+            border-radius: 5px;
+            text-align: left;
+        }
+        .result h3 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #28a745; /* green color */
+        }
+        .result p {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .result span {
+            font-weight: bold;
+            color: #007bff; /* blue color */
+        }
+        .statement-result {
+            margin-top: 20px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            background-color: #fff;
+        }
+        .statement-result p {
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        .statement-result .yes {
+            color: #28a745; /* green color */
+            font-weight: bold;
+        }
+        .statement-result .no {
+            color: #dc3545; /* red color */
+            font-weight: bold;
+        }
+        .advanced {
+            margin-top: 20px;
+            font-size: 14px;
+            color: #666;
+        }
+        .advanced a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+        .advanced a:hover {
+            text-decoration: underline;
+        }
+        /* New styles for error message */
+        .error {
+            color: #dc3545; /* red color */
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        </style>
+        </head>
+        <body>
+        <div class="container">
+        <h2>Upload PDF for Verification</h2>
+        <form action="/api/pdf/data" method="post" enctype="multipart/form-data">
+        <div class="form-group">
+        <label for="file">Choose PDF File:</label>
+        <input type="file" id="file" name="file" required>
+        </div>
+        <div class="form-group">
+        <label for="password">Password (if any):</label>
+        <input type="password" id="password" name="password" placeholder="Password">
+        </div>
+        <!-- Error message display -->
+        <div th:if="${error != null}" class="error">
+        <p th:text="${error}"></p>
+        </div>
+        <button type="submit">Check PDF</button>
+        </form>
+        <div class="result" th:if="${metadata != null}">
+        <h3>Result:</h3>
+        <p><span>Writer:</span> <span th:text="${metadata.author}"></span></p>
+        <p><span>Name:</span> <span th:text="${metadata.title}"></span></p>
+
+        <!-- Conditionally display Producer -->
+        <p th:unless="${metadata.originalBankStatement}">
+        <span>Creator:</span> <span th:text="${metadata.producer}"></span>
+        </p>
+
+        <!-- Bank statement authenticity -->
+        <div th:if="${metadata.originalBankStatement} != null" class="statement-result" th:unless="${!metadata.originalBankStatement}">
+        <p>Is this an original bank statement?</p>
+        <p th:if="${metadata.originalBankStatement}" class="yes">Yes</p>
+        <p th:if="${!metadata.originalBankStatement}" class="no">No</p>
+        </div>
+        </div>
+        <div class="advanced">
+        <p>Looking for more advanced PDF tools? Visit <a href="#">our advanced tools</a>.</p>
+        </div>
+        </div>
+        </body>
+        </html>

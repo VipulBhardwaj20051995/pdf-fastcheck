@@ -1,0 +1,6 @@
+com\example\welcomepage\WelcomepageApplication.class
+com\example\welcomepage\dto\PdfMetadataDto.class
+com\example\welcomepage\config\WebConfig.class
+com\example\welcomepage\controller\PdfMetadataController.class
+com\example\welcomepage\controller\WelcomeController.class
+com\example\welcomepage\service\PdfMetadataService.class
